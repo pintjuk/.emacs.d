@@ -174,10 +174,19 @@
         "pdflatex -interaction nonstopmode -output-directory %o %f"))
 
 (require 'org-journal)
-
-;; python config
-(add-hook 'python-mode-hook
-	  (lambda () (
-	     (message "configuring python mod")
-	    ;; ctags stuff
-	  )))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; python config;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq python-shell-interpreter "python3")
+(defun config-python ()
+  (message "configuring python mod")
+  (setq tags-file-name "tags")
+  (defun regenerate-ctags ()
+    (message "running ctags...")
+    ;(shell-command "ctags -f tags -e -R $(python3 -m site | sed -n \"/.*'.*',/p\" | sed \"s/.*'\\\\(.*\\\\)'.*,/\\1/g\"" ))
+    (shell-command "ctags -f tags -e -R  $(python3 -m site | sed -n \"/.*'.*,/p\" | sed \"s/.*'\\\\(.*\\\\)'.*,/\\1/g\") 2> /dev/null; echo 'ctags regenerated'"))
+    (add-hook 'after-save-hook 'regenerate-ctags)
+;    (setq tags-table-list
+;           '("~/emacs" "/usr/local/lib/emacs/src"))
+)
+(add-hook 'python-mode-hook 'config-python)
