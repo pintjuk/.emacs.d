@@ -1,5 +1,8 @@
 (load "/home/daniil/HOL/tools/hol-mode")
 
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+
 (setq inhibit-startup-screen t)
 
 (defun my-sml-mode-hook ()
@@ -9,8 +12,7 @@
 (add-hook 'prog-mode-hook
 	  (lambda () (mouse-wheel-mode -1)))
 (transient-mark-mode 1)
-(tool-bar-mode -1)
-
+(tool-bar-mode -1) 
 
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
@@ -149,6 +151,21 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
+;(use-package flycheck
+;  :ensure t
+;  :init (global-flycheck-mode))
+
+
+;; parslin for flycheck stuff
+;;(require 'flycheck-proselint)
+;;(eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-proselint-setup))
+;; (add-hook 'text-mode-hook #'flycheck-mode)
+;; (add-hook 'markdown-mode-hook #'flycheck-mode)
+;; (add-hook 'message-mode-hook #'flycheck-mode)
+;(use-package 'flycheck-vale)
+;(require 'flycheck-vale)
+;(flycheck-vale-setup)
 
 (require 'evil)
 (evil-mode t)
@@ -190,3 +207,10 @@
 ;           '("~/emacs" "/usr/local/lib/emacs/src"))
 )
 (add-hook 'python-mode-hook 'config-python)
+
+; set terminal bacround to use system wide setting
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(add-hook 'window-setup-hook 'on-after-init)
