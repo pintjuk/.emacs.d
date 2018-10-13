@@ -151,6 +151,14 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 ;(use-package flycheck
 ;  :ensure t
 ;  :init (global-flycheck-mode))
@@ -174,6 +182,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yaml-mode use-package sml-mode org-journal org-gnome org-evil go-mode flycheck-vale evil-org)))
  '(sml-electric-pipe-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -214,3 +225,18 @@
     (set-face-background 'default "unspecified-bg" (selected-frame))))
 
 (add-hook 'window-setup-hook 'on-after-init)
+
+(require 'flymake)
+
+(defun flymake-get-tex-args (file-name)
+(list "pdflatex"
+(list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+
+(add-hook 'LaTeX-mode-hook 'flymake-mode)
+
+(require 'reftex)
+
+
+
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
