@@ -1,4 +1,4 @@
-(load "/home/daniil/HOL/tools/hol-mode")
+(load "/home/daniil/Apps/HOL/tools/hol-mode")
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -184,7 +184,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode use-package sml-mode org-journal org-gnome org-evil go-mode flycheck-vale evil-org)))
+    (tide typescript-mode golint yaml-mode use-package sml-mode org-journal org-gnome org-evil go-mode flycheck-vale evil-org)))
  '(sml-electric-pipe-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
